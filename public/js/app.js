@@ -5,7 +5,15 @@ new Vue({
         responseData: [],
         form: { 
             'text':'' 
-        }
+        },
+        updateForm: {
+            'text':'',
+            'id' :''
+        },
+        check: {
+            'status':''
+        },
+        activeColor: 'blue'
     },
     mounted () {
         this.getTodo();
@@ -46,8 +54,41 @@ new Vue({
                     console.log(response.data);
                     vm.getTodo();
                 });
-        }
+        },
+        editTodo:function (todo) { //edittodo
+            var vm = this;
+            
+            vm.updateForm.text = todo.text;
+            vm.updateForm.id = todo.id;
+            // console.log(formUpdate);
+            // console.log(vm.updateForm.id);
+        },
+        updateTodo:function () { //updatetodo
+            var vm = this;
+            var update = vm.updateForm;
+            console.log(update);
+            axios
+                .post('http://todo.test/todo/update',update)
+                .then(function (response) {
+                    console.log(response.data);
+                    vm.getTodo();
+                    vm.updateForm.text = "";
 
+                });
+        },
+        checkTodo:function (todo) {
+            var check = todo;
+            var vm =this;
+            // console.log(check);
+            axios
+            .post('http://todo.test/todo/check',check)
+            .then(function (response) {
+                console.log(response.data);
+                vm.getTodo();
+                
+
+            });
+        }
     }
     
 })

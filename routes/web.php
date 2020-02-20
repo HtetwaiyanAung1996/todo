@@ -22,4 +22,6 @@ Route::post('todo/update', 'TodoController@update');
 
 Route::post('todo/delete', 'TodoController@destroy');
 
+Route::post('todo/check', 'TodoController@check');
+
 

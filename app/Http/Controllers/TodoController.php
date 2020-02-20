@@ -77,7 +77,7 @@ class TodoController extends Controller
         $id = $request->id;
         $todo = Todo::find($id);
         $todo->text = $request->text;
-        $todo->status = $request->status;
+        $todo->status = 'completed';
         $todo->save();
     }
 
@@ -94,4 +94,15 @@ class TodoController extends Controller
         $todo = Todo::find($id);
         $todo->delete();
     }
+
+
+    public function check(Request $request)
+    {   
+        $id = $request->id;
+        $todo = Todo::find($id);
+        $todo->text = $request->text;
+        $todo->status = 'completed';
+        $todo->save();
+    }
+
 }

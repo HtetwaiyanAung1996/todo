@@ -14,15 +14,17 @@
     <title>I am Testing Vue Js</title>
 </head>
 <body>
+    
     <div id="app">
         {{-- <pre>@{{ responseData }}</pre> --}}
-        <div class="container">
+        <div class="container mt-5">
             <div class="row">
-                {{-- <pre>@{{ form }}</pre> --}}
+            {{-- <pre>@{{check}}</pre> --}}
+            
                 <div class="col-lg-12">
-                    <h1>Tasks <span>()</span></h1>
+                    <h1>Tasks <span style="color:orangered">(@{{responseData.length}})</span></h1>
                 </div>
-                <div class="col-lg-12">
+                <div class="col-lg-6">
                     <input type="text" id="text" name ="text" v-model ="form.text">
                     <span>
                         <button class="btn-primary" @click.prevent="createTodo()" id="name" name="name">
@@ -30,11 +32,14 @@
                     </button>
                 </span>
                 </div>
-                <div class="col-lg-12 mt-3">
-                    <button class="btn-warning"> 
-                        <i class="fa fa-check"></i>Clear Completed</button>
-                    <button class="btn-danger">  
-                        <i class="fa fa-trash"></i>Clear All</button>
+                <div class="col-lg-6">
+                    {{-- <pre>@{{updateForm}}</pre> --}}
+                    <input type="text" id="utext" name="utext" v-model="updateForm.text">
+                    <span>
+                        <button class="btn-dark" @click.prevent="updateTodo()" id="uname" name="uname">
+                        <i class="fa fa-plus"></i>Update
+                    </button>
+                </span>
                 </div>
             </div>
         </div>
@@ -42,11 +47,26 @@
             <table class="table table-bordered">
                 <tr v-for="todo in responseData">
                     <td >
-                        @{{ todo.text}} 
+                        {{-- <h6 id ="p2">@{{ todo.text}} </h6> --}}
+                        <div v-if="todo.status == 'completed'">
+                                <div v-bind:style="{ color: activeColor }">@{{ todo.text}}</div>
+                        </div>
+                        <div v-else>@{{todo.text}}</div>
+                    </td>
+                    <td>
+                        <pre>@{{ todo.status }}</pre>
+                    </td>
+                    <td>
+                        <button class="btn-info" @click.prevent="checkTodo(todo)">
+                            <i class="fas fa-check"></i>
+                        </button>
                     </td>
                     <td>
                         <button class="btn-danger" @click.prevent="deleteTodo(todo)">
                             <i class="fa fa-times"></i>
+                        </button>
+                        <button class="btn-success" @click.prevent="editTodo(todo)">
+                            <i class="fas fa-edit"></i>
                         </button>
                     </td>
                 </tr>
@@ -54,5 +74,6 @@
         </div>
     </div>
     <script src="/js/app.js"></script>
+    
 </body>
 </html>
